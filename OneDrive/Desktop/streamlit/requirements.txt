@@ -1,0 +1,7 @@
+streamlit
+supabase
+textblob
+requests
+numpy
+pandas
+matplotlib
