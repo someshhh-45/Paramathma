@@ -1,11 +1,11 @@
 # 🧘 Parmatma - AI-Powered Health & Wellness Platform
 
-[![Deploy to Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://paramathma-xn662mgbpebgcifbvto2yb.streamlit.app/)
 
 A comprehensive health and wellness application built with Streamlit, featuring AI-powered coaching, health tracking, and personalized wellness insights.
 
-## 🚀 Deploy Your Own
-🌐 **[Deploy on Streamlit Cloud](https://share.streamlit.io)** - Connect this GitHub repository to deploy instantly!
+## 🚀 Live Demo
+🌐 **[Try Parmatma Live](https://paramathma-xn662mgbpebgcifbvto2yb.streamlit.app/)** - Experience the full AI-powered health platform!
 
 ## 🌟 Features
 
@@ -143,7 +143,10 @@ The Digital Soul Twin uses a sophisticated time-weighted scoring system:
 
 ## 🚀 Deployment
 
-### Deploy to Streamlit Cloud (Recommended)
+### Live Application
+🌐 **[Access Parmatma Live](https://paramathma-xn662mgbpebgcifbvto2yb.streamlit.app/)**
+
+### Deploy Your Own Copy
 1. **Go to [share.streamlit.io](https://share.streamlit.io)**
 2. **Sign in with your GitHub account**
 3. **Click "New app"**
@@ -158,8 +161,6 @@ The Digital Soul Twin uses a sophisticated time-weighted scoring system:
    SUPABASE_KEY = "your_supabase_key"
    ```
 6. **Click "Deploy!"**
-
-Your app will be live at: `https://your-app-name.streamlit.app`
 
 ### Local Development
 ```bash
