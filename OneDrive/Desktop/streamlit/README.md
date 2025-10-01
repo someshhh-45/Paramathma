@@ -1,6 +1,11 @@
 # 🧘 Parmatma - AI-Powered Health & Wellness Platform
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://paramathma.streamlit.app)
+
 A comprehensive health and wellness application built with Streamlit, featuring AI-powered coaching, health tracking, and personalized wellness insights.
+
+## 🚀 Live Demo
+🌐 **[Try Parmatma Live on Streamlit Cloud](https://paramathma.streamlit.app)**
 
 ## 🌟 Features
 
@@ -137,6 +142,9 @@ The Digital Soul Twin uses a sophisticated time-weighted scoring system:
 - Adaptive coaching based on historical data
 
 ## 🚀 Deployment
+
+### Live Application
+🌐 **[Access Parmatma Live](https://paramathma.streamlit.app)**
 
 ### Streamlit Cloud
 1. Push your code to GitHub
