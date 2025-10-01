@@ -1,11 +1,11 @@
 # 🧘 Parmatma - AI-Powered Health & Wellness Platform
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://paramathma.streamlit.app)
+[![Deploy to Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io)
 
 A comprehensive health and wellness application built with Streamlit, featuring AI-powered coaching, health tracking, and personalized wellness insights.
 
-## 🚀 Live Demo
-🌐 **[Try Parmatma Live on Streamlit Cloud](https://paramathma.streamlit.app)**
+## 🚀 Deploy Your Own
+🌐 **[Deploy on Streamlit Cloud](https://share.streamlit.io)** - Connect this GitHub repository to deploy instantly!
 
 ## 🌟 Features
 
@@ -143,14 +143,23 @@ The Digital Soul Twin uses a sophisticated time-weighted scoring system:
 
 ## 🚀 Deployment
 
-### Live Application
-🌐 **[Access Parmatma Live](https://paramathma.streamlit.app)**
+### Deploy to Streamlit Cloud (Recommended)
+1. **Go to [share.streamlit.io](https://share.streamlit.io)**
+2. **Sign in with your GitHub account**
+3. **Click "New app"**
+4. **Connect your repository:**
+   - Repository: `someshhh-45/Paramathma`
+   - Branch: `master`
+   - Main file path: `ptest.py`
+5. **Add your secrets in the app settings:**
+   ```toml
+   GOOGLE_API_KEY = "your_google_api_key"
+   SUPABASE_URL = "your_supabase_url"
+   SUPABASE_KEY = "your_supabase_key"
+   ```
+6. **Click "Deploy!"**
 
-### Streamlit Cloud
-1. Push your code to GitHub
-2. Connect to [share.streamlit.io](https://share.streamlit.io)
-3. Deploy with one click
-4. Add secrets in Streamlit Cloud dashboard
+Your app will be live at: `https://your-app-name.streamlit.app`
 
 ### Local Development
 ```bash
