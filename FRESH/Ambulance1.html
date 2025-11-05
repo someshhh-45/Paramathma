@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Ambulance Driver Portal</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;padding:40px}
+    .card{max-width:600px;margin:0 auto;background:#fff;padding:24px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    .btn{display:inline-block;padding:10px 14px;background:#3498db;color:#fff;border-radius:6px;text-decoration:none}
+    /* modal */
+    .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); align-items:center; justify-content:center; z-index:9999 }
+    .modal .box { background:#fff; padding:20px; border-radius:8px; max-width:480px; width:90% }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>🚑 Ambulance Driver Portal</h2>
+    <p>Live notification listener. When the dispatcher assigns you, a popup will appear.</p>
+
+    <label>
+      <strong>Your ambulance row id in Baserow:</strong>
+      <input id="rowId" placeholder="Enter row id" style="width:160px;margin-left:8px;padding:6px" />
+    </label>
+    <button class="btn" id="startBtn">Start Listening</button>
+    <button class="btn" id="stopBtn" style="display:none;background:#e74c3c">Stop</button>
+
+    <div style="margin-top:16px;color:#666">
+      Tip: Put this page on the ambulance tablet and keep it open.
+    </div>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="box">
+      <h3 id="modalTitle">New Assignment</h3>
+      <div id="modalBody" style="margin-top:8px"></div>
+      <div style="margin-top:12px;text-align:right">
+        <button id="ackBtn" class="btn" style="background:#2ecc71">Acknowledge</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+const CONFIG = {
+  BASEROW_API_URL: 'https://api.baserow.io/api/database/rows/table/',
+  BASEROW_TOKEN: 'QsQYhi1jNSzR0YroQunX3ZjJV4W9oja6', // replace with proper token
+  TABLE_IDS: { AMBULANCES: '674303' } // keep consistent with your main app
+};
+
+let pollHandle = null;
+let lastNotification = null;
+
+// Get row by ID
+async function getAmbulanceRow(rowId) {
+  try {
+    const url = `${CONFIG.BASEROW_API_URL}${CONFIG.TABLE_IDS.AMBULANCES}/${rowId}/?user_field_names=true`;
+    const res = await fetch(url, { headers: { 'Authorization': `Token ${CONFIG.BASEROW_TOKEN}` }});
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (err) {
+    console.error('getAmbulanceRow error', err);
+    return null;
+  }
+}
+
+// Clear notification field on the ambulance row
+async function clearNotification(rowId) {
+  try {
+    const url = `${CONFIG.BASEROW_API_URL}${CONFIG.TABLE_IDS.AMBULANCES}/${rowId}/?user_field_names=true`;
+    const body = { "Notification": "" };
+    const res = await fetch(url, {
+      method: 'PATCH',
+      headers: { 'Authorization': `Token ${CONFIG.BASEROW_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    return res.ok;
+  } catch (err) {
+    console.error('clearNotification error', err);
+    return false;
+  }
+}
+
+function showModal(text) {
+  document.getElementById('modalBody').innerText = text;
+  document.getElementById('modal').style.display = 'flex';
+  // optional: play a sound
+  try { new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play(); } catch(e){}
+}
+
+function hideModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+
+// Polling loop
+async function poll(rowId) {
+  const row = await getAmbulanceRow(rowId);
+  if (!row) return;
+  const note = (row['Notification'] || '').trim();
+  if (note && note !== lastNotification) {
+    lastNotification = note;
+    showModal(note);
+  }
+}
+
+document.getElementById('startBtn').addEventListener('click', () => {
+  const rowId = document.getElementById('rowId').value.trim();
+  if (!rowId) return alert('Enter your Baserow row id');
+  if (pollHandle) clearInterval(pollHandle);
+  pollHandle = setInterval(() => poll(rowId), 3000); // every 3 seconds
+  document.getElementById('startBtn').style.display = 'none';
+  document.getElementById('stopBtn').style.display = 'inline-block';
+});
+
+document.getElementById('stopBtn').addEventListener('click', () => {
+  if (pollHandle) clearInterval(pollHandle);
+  pollHandle = null;
+  document.getElementById('startBtn').style.display = 'inline-block';
+  document.getElementById('stopBtn').style.display = 'none';
+});
+
+document.getElementById('ackBtn').addEventListener('click', async () => {
+  const rowId = document.getElementById('rowId').value.trim();
+  if (!rowId) return;
+  // clear notification after ack
+  await clearNotification(rowId);
+  hideModal();
+});
+</script>
+</body>
+</html>
